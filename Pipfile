@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pyaudio = "*"
 google = "*"
+pyinstaller = "*"
 
 [dev-packages]
 
