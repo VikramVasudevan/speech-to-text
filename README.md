@@ -16,5 +16,9 @@ Wait till you see the following output:
 
 Start talking and see your voice getting transcribed to text instantly **in real-time**!
 
-## Use-cases
+### Output
+- The real-time transcription of your speech shows up on the console
+- The transcription is also recorded in a file called notes.txt
+
+### Use-cases
 - Use this to document your meetings without actually taking any notes.
