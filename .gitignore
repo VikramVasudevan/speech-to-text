@@ -1,0 +1,19 @@
+output/New recording 11.txt
+output/New recording 12.txt
+output/New recording 13.txt
+output/New recording 15.txt
+samples/hello.m4a
+samples/New recording 11.m4a
+samples/New recording 12.m4a
+samples/New recording 13.m4a
+samples/New recording 15.m4a
+samples/sample001.mp4
+samples/sample002.aac
+samples/sample003.aac
+.google-cookie
+test/main.py
+test/multiprocessingDemo copy.py
+test/queueDemo.py
+test/record.py
+test/transcribeOnTheFly.py
+test/transcribeOnTheFlyV2.py
