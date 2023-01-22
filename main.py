@@ -27,7 +27,7 @@ def record(consumerQueue):
             consumerQueue.put_nowait(audio)
             print("Adding audio to transcriber ... Done")
 
-def stage1(q_in, q_out):
+def recorderStage(q_in, q_out):
     try:
         print("stage1 started")
         q_in.get()
@@ -39,7 +39,7 @@ def stage1(q_in, q_out):
         print(e)
     return
 
-def stage2(q_in, q_out):
+def transcriberStage(q_in, q_out):
     print("stage2 started")
     while True:
         print("Waiting for audio ...")
@@ -54,22 +54,24 @@ def main():
     manager = mp.Manager()
 
     # create managed queues
-    q_main_to_s1 = manager.Queue()
-    q_s1_to_s2 = manager.Queue()
-    q_s2_to_main = manager.Queue()
+    q_main_to_recorder = manager.Queue()
+    q_recorder_to_transcriber = manager.Queue()
+    q_transcriber_to_main = manager.Queue()
 
     # launch workers, passing them the queues they need
-    results_s1 = pool.apply_async(stage1, (q_main_to_s1, q_s1_to_s2))
-    results_s2 = pool.apply_async(stage2, (q_s1_to_s2, q_s2_to_main))
+    results_s1 = pool.apply_async(recorderStage, (q_main_to_recorder, q_recorder_to_transcriber))
+    results_s2 = pool.apply_async(transcriberStage, (q_recorder_to_transcriber, q_transcriber_to_main))
 
     # Send a message into the pipeline
-    q_main_to_s1.put("Main started the job.\n")
+    q_main_to_recorder.put("Start recording.\n")
 
     # Wait for work to complete
-    print(q_s2_to_main.get()+"Main finished the job.")
+    print(q_transcriber_to_main.get()+"Main completed.")
 
     pool.close()
     pool.join()
+
+    print("All done")
 
     return
 
